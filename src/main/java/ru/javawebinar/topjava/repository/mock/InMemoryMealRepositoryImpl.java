@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import ru.javawebinar.topjava.web.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Collection;
 import java.util.Map;
@@ -31,13 +33,23 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(int id) {
-        repository.remove(id);
+    public boolean delete(int id) {
+		if (repository.get(id) != null && AuthorizedUser.id() == repository.get(id).getUserId()) {
+			repository.remove(id);
+			
+			return true;
+		} else {
+			throw new NotFoundException("Meal not found!");
+		}
     }
 
     @Override
     public Meal get(int id) {
-        return repository.get(id);
+    	if (repository.get(id) != null && AuthorizedUser.id() == repository.get(id).getUserId()) {
+    		return repository.get(id);
+		} else {
+    		throw new NotFoundException("Meal not found!");
+		}
     }
 
     @Override

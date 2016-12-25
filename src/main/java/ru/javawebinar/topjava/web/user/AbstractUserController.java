@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * User: gkislin
@@ -17,7 +17,7 @@ public abstract class AbstractUserController {
     @Autowired
     private UserService service;
 
-    public List<User> getAll() {
+    public Map<Integer, User> getAll() {
         LOG.info("getAll");
         return service.getAll();
     }
