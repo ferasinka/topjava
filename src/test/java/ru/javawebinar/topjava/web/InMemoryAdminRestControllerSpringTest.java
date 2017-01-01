@@ -18,37 +18,32 @@ import java.util.Collection;
 import static ru.javawebinar.topjava.UserTestData.ADMIN;
 import static ru.javawebinar.topjava.UserTestData.USER;
 
-/**
- * GKislin
- * 13.03.2015.
- */
-@ContextConfiguration("classpath:spring/spring-app.xml")
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
-
-    @Autowired
-    private AdminRestController controller;
-
-    @Autowired
-    private UserRepository repository;
-
-    @Before
-    public void setUp() throws Exception {
-        repository.getAll().forEach(u -> repository.delete(u.getId()));
-        repository.save(USER);
-        repository.save(ADMIN);
-    }
-
-    @Test
-    public void testDelete() throws Exception {
-        controller.delete(UserTestData.USER_ID);
-        Collection<User> users = controller.getAll();
-        Assert.assertEquals(users.size(), 1);
-        Assert.assertEquals(users.iterator().next(), ADMIN);
-    }
-
-    @Test(expected = NotFoundException.class)
-    public void testDeleteNotFound() throws Exception {
-        controller.delete(10);
-    }
+	@Autowired
+	private AdminRestController controller;
+	
+	@Autowired
+	private UserRepository repository;
+	
+	@Before
+	public void setUp() throws Exception {
+//		repository.getAll().forEach(u -> repository.delete(u.getId()));
+		repository.save(USER);
+		repository.save(ADMIN);
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		controller.delete(UserTestData.USER_ID);
+		Collection<User> users = controller.getAll();
+		Assert.assertEquals(users.size(), 1);
+		Assert.assertEquals(users.iterator().next(), ADMIN);
+	}
+	
+	@Test(expected = NotFoundException.class)
+	public void testDeleteNotFound() throws Exception {
+		controller.delete(10);
+	}
 }
