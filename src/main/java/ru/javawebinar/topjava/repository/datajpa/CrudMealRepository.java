@@ -1,11 +1,25 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 
-/**
- * gkislin
- * 02.10.2016
- */
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Transactional(readOnly = true)
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
+	@Transactional
+	Meal save(Meal Meal, int userId);
+	
+	@Transactional
+	@Modifying
+	boolean delete(int id, int userId);
+	
+	Meal get(int id, int userId);
+	
+	List<Meal> getAll(int userId);
+	
+	List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 }

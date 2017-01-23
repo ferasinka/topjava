@@ -8,38 +8,34 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * GKislin
- * 27.03.2015.
- */
 @Repository
 public class DataJpaMealRepositoryImpl implements MealRepository {
-
-    @Autowired
-    private CrudMealRepository crudRepository;
-
-    @Override
-    public Meal save(Meal Meal, int userId) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(int id, int userId) {
-        return false;
-    }
-
-    @Override
-    public Meal get(int id, int userId) {
-        return null;
-    }
-
-    @Override
-    public List<Meal> getAll(int userId) {
-        return null;
-    }
-
-    @Override
-    public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return null;
-    }
+	
+	@Autowired
+	private CrudMealRepository crudRepository;
+	
+	@Override
+	public Meal save(Meal Meal, int userId) {
+		return crudRepository.save(Meal, userId);
+	}
+	
+	@Override
+	public boolean delete(int id, int userId) {
+		return crudRepository.delete(id, userId);
+	}
+	
+	@Override
+	public Meal get(int id, int userId) {
+		return crudRepository.get(id, userId);
+	}
+	
+	@Override
+	public List<Meal> getAll(int userId) {
+		return getAll(userId);
+	}
+	
+	@Override
+	public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+		return crudRepository.getBetween(startDate, endDate, userId);
+	}
 }
