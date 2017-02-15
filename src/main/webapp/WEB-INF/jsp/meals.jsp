@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+<script type="text/javascript" src="resources/js/datatablesUtil.js" defer></script>
+<script type="text/javascript" src="resources/js/mealDatatables.js" defer></script>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -58,6 +60,7 @@
         </c:forEach>
     </table>
 </section>
+
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
